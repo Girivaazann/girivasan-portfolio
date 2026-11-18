@@ -256,7 +256,7 @@ if ("IntersectionObserver" in window) {
    6. CONSOLE MESSAGE
 ========================================= */
 
-console.log("Girivasan's Portfolio Loaded Successfully!");
+
 
 /* =========================================
    7. DARK AND LIGHT THEME TOGGLE
