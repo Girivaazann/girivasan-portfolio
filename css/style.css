@@ -632,8 +632,12 @@ section {
 }
 
 .family-banner {
-    max-width: 1000px;
+    width: 75%;
+    max-width: 800px;
     margin: 0 auto var(--spacing-xl);
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
 }
 
 .family-photo-placeholder {
@@ -1323,14 +1327,6 @@ body,
 
 /* FAMILY GROUP PHOTO */
 
-.family-banner {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto 40px;
-    overflow: hidden;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-}
 
 .family-group-photo {
     display: block;
