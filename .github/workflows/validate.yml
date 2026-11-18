@@ -1,0 +1,41 @@
+
+name: HTML and CSS Validation
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  validate:
+    name: Validate HTML and CSS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate HTML
+        run: |
+          npx --yes htmlhint@1.1.4 index.html
+
+      
+      - name: Install CSS validation tools
+        run: |
+          npm install --no-save --no-package-lock stylelint@16.23.1 stylelint-config-standard@36.0.1
+
+      - name: Validate CSS
+        run: |
+          npx stylelint "css/**/*.css"
+
