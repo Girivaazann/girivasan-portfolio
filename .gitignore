@@ -1,0 +1,24 @@
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor settings
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Lighthouse output
+.lighthouseci/
