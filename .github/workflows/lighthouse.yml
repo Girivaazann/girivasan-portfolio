@@ -1,0 +1,60 @@
+
+name: Lighthouse Performance Audit
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy Portfolio to GitHub Pages
+    types:
+      - completed
+    branches:
+      - main
+
+  schedule:
+    - cron: "0 9 * * 1"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    name: Run Lighthouse Audit
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Lighthouse CI
+        run: |
+          npm install --global @lhci/cli@0.14.0
+
+      - name: Collect Lighthouse reports
+        run: |
+          lhci collect \
+            --url=https://girivaazann.github.io/girivasan-portfolio/ \
+            --numberOfRuns=1
+
+      - name: Save Lighthouse reports
+        run: |
+          lhci upload \
+            --target=filesystem \
+            --outputDir=./.lighthouseci
+
+      - name: Upload Lighthouse artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/
+          retention-days: 30
+          if-no-files-found: error
